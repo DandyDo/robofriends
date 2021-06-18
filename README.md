@@ -1,22 +1,5 @@
 # [robofriends](https://dandydo.github.io/robofriends) a React.js tutorial from ZTM
 
-## Deploying to gh-pages
-
-1. Install gh-pages https://www.npmjs.com/package/gh-pages
-NOTE: make sure that git repo is already pushed and you are at the project's repo
-2. Open package.json and add
-#### `"homepage": "http://github-username.github.io/github-repo-name"`
-3. add to "scripts" in package.json
-#### `"predeploy": "npm run build",`
-#### `"deploy": "gh-pages -d build"`
-4. deploy to gh-pages
-#### `npm run deploy`
-
-Optional: update your repo with your changes.
-
-Now everything should be set up (you don't have to select the gh-pages branch in Pages since that has already done automatically.
-
-
 ## Available Scripts
 
 In the project directory, you can run:
@@ -53,3 +36,19 @@ If you aren’t satisfied with the build tool and configuration choices, you can
 Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+
+# Deploying to gh-pages (for any new React.js projects)
+
+1. Install gh-pages https://www.npmjs.com/package/gh-pages
+NOTE: make sure that git repo is already pushed and you are at the project's repo
+2. Open package.json and add
+#### `"homepage": "http://github-username.github.io/github-repo-name"`
+3. add to "scripts" in package.json
+#### `"predeploy": "npm run build",`
+#### `"deploy": "gh-pages -d build"`
+4. deploy to gh-pages
+#### `npm run deploy`
+
+Optional: update your repo with your changes.
+
+Now everything should be set up (you don't have to select the gh-pages branch in Pages since that has already done automatically.
