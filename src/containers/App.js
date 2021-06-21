@@ -1,7 +1,7 @@
 import React from 'react';
-import CardList from './CardList';
-import SearchBox from './SearchBox';
-import Scroll from './Scroll.js';
+import CardList from '../components/CardList';
+import SearchBox from '../components/SearchBox';
+import Scroll from '../components/Scroll.js';
 import './App.css'; 
 
 class App extends React.Component {
@@ -18,13 +18,14 @@ class App extends React.Component {
     }
 
     render() {
+        const { robots, searchfield } = this.state;
         // Filter the robots based on their name (always lowercase)
-        const filteredRobots = this.state.robots.filter(robots => {
-            return robots.name.toLowerCase().includes(this.state.searchfield.toLowerCase());
+        const filteredRobots = robots.filter(robot => {
+            return robot.name.toLowerCase().includes(searchfield.toLowerCase());
         })
 
         // Display 'Loading' if there are too many users, else display the robots
-        if (this.state.robots.length === 0) {
+        if (!robots.length) {
             return <h1 className="tc">Loading</h1>;
         } 
         else {
