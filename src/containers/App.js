@@ -31,7 +31,11 @@ class App extends React.Component {
         else {
             return (
                 <div className='tc'>
-                    <h1 className="f1 dim">Robofriends</h1>
+                    <h1 className="f1 dim">
+                        <a href="https://github.com/DandyDo/robofriends" style={{color:'inherit', textDecoration: 'inherit'}}>
+                            Robofriends
+                        </a>
+                    </h1>
                     <SearchBox searchChange={this.onSearchChange}/>
                     <Scroll>
                         <CardList robots={filteredRobots} />
