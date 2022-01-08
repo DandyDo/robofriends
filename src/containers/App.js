@@ -1,31 +1,35 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux'
+import { setRobots, setSearchField } from '../actions';
 import CardList from '../components/CardList';
 import SearchBox from '../components/SearchBox';
 import Scroll from '../components/Scroll.js';
 import ErrorBoundry from '../components/ErrorBoundry';
-import './App.css'; 
+import './App.css';
+
 
 const App = () => {
-    const [robots, setRobots] = useState([]);
-    const [searchfield, setSearchField] = useState('');
-
+    const dispatch = useDispatch();
+    const { robots, searchField } = useSelector((state) => state);
+    
     // Fake online REST API that contains users
     useEffect(() => {
         fetch('https://jsonplaceholder.typicode.com/users')
             .then(response => response.json())
-            .then(users => {setRobots(users)});
+            .then(users => {dispatch(setRobots(users))});
     }, []);
     
     const onSearchChange = (event) => {
-        setSearchField(event.target.value);
+        dispatch(setSearchField(event.target.value));
     }
 
     // Filter the robots based on their name (always lowercase)
     const filteredRobots = robots.filter(robot => {
-        return robot.name.toLowerCase().includes(searchfield.toLowerCase());
+        return robot.name.toLowerCase().includes(searchField.toLowerCase());
     })
 
-    // Display 'Loading' if there are too many users, else display the robots
+    // Display 'Loading' if there are too many users or it hasn't recieved all robots,
+    // else, display the robots
     if (!robots.length) {
         return <h1 className="tc">Loading</h1>;
     } 
