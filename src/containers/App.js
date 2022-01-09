@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux'
-import { setRobots, setSearchField } from '../actions';
+import { requestRobots, setSearchField } from '../actions';
 import CardList from '../components/CardList';
 import SearchBox from '../components/SearchBox';
 import Scroll from '../components/Scroll.js';
@@ -10,18 +10,21 @@ import './App.css';
 
 const App = () => {
     const dispatch = useDispatch();
-    const { robots, searchField } = useSelector((state) => state);
+    const { isPending, robots, error } = useSelector((state) => state.requestRobots);
+    const { searchField } = useSelector((state) => state.searchRobots);
     
-    // Fake online REST API that contains users
-    useEffect(() => {
-        fetch('https://jsonplaceholder.typicode.com/users')
-            .then(response => response.json())
-            .then(users => {dispatch(setRobots(users))});
-    }, []);
+    const onRequestRobots = () => {
+        dispatch(requestRobots());
+    }
     
     const onSearchChange = (event) => {
         dispatch(setSearchField(event.target.value));
     }
+
+    // fetch users/robots
+    useEffect(() => {
+        onRequestRobots();
+    }, [])
 
     // Filter the robots based on their name (always lowercase)
     const filteredRobots = robots.filter(robot => {
@@ -30,10 +33,10 @@ const App = () => {
 
     // Display 'Loading' if there are too many users or it hasn't recieved all robots,
     // else, display the robots
-    if (!robots.length) {
+    if (isPending) {
         return <h1 className="tc">Loading</h1>;
     } 
-    else {
+    else if (!error) {
         return (
             <div className="tc">
                 <h1 className="f1">
